@@ -58,7 +58,7 @@ def noodid(): #ja noodijoonestik
         if i % 2 == 0:
             pygame.draw.line(screen, (0,0,0), (60 + i*40, 442-i/2*24), (140 + i*40,442-i/2*24), 1)
 
-def täida():
+def hiir():
     global võti, märk
     x=pygame.mouse.get_pos()[0]
     y=pygame.mouse.get_pos()[1]
@@ -76,14 +76,12 @@ def täida():
             märk = 2
         else:
             märk = 0
-    for i in range(25): #BUG ON SEES, Y EI TÖÖTA ILUSTI
+    for i in range(25):
         if abs(x - (100+i*40))<=12:
-            for k in range(25):
-                if abs(y - (442 - k*12))<=12:
-                    #print(abs(y - (442 - k*12)))
-                    pygame.draw.circle(screen, (0,0,0), (koordinaadid[i]), 12,0)
-                    break
-            break
+            if abs(y - (442 - i*12))<=12:
+                pygame.draw.circle(screen, (0,0,0), (koordinaadid[i]), 12,0)
+                print(i)
+                break
     return i
 
 võti = 0
@@ -101,7 +99,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             screen.fill([255,255,255])
             noodid()
-            x = täida() #kasuta et noot märgistada
+            x = hiir() #kasuta et noot märgistada
     if võti == 1:
         viiulivõti()
     else:
@@ -115,14 +113,3 @@ while running:
     pygame.display.flip()
             
 pygame.quit()           
-
-
-"""pygame.mixer.music.load('F4.wav')
-pygame.mixer.music.play()
-viiulivõti()
-
-pygame.time.wait(5000)
-pygame.mixer.music.load('F2.wav')
-pygame.mixer.music.play()
-bassivõti()"""
-    
